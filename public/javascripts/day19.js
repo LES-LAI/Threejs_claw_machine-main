@@ -25,7 +25,7 @@ function gltf_loader(){
         dogObj.rotation.y = Math.PI / 8;
         dogObj.position.y = 0;
 
-        dogObj.scale.set(10, 10, 10);
+        dogObj.scale.set(1, 1, 1);
 
         dogObj.traverse(function(object) {
             if (object instanceof THREE.Mesh) {

@@ -60,6 +60,16 @@ router.get('/Day18', function(req, res, next) {
 router.get('/Day19', function(req, res, next) {
   res.render('day19', { title: 'Day19' });
 });
+// Day19_2
+router.get('/Day19_2', function(req, res, next) {
+  res.render('day19_2', { title: 'Day19_2' });
+});
+
+// Day19_3
+router.get('/Day19_3', function(req, res, next) {
+  res.render('day19_3', { title: 'Day19_3' });
+});
+
 
 // Day20
 router.get('/Day20', function(req, res, next) {
