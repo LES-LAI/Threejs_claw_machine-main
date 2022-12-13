@@ -106,4 +106,14 @@ router.get('/Day26', function(req, res, next) {
   res.render('day26', { title: 'Day26' });
 });
 
+// Storm
+router.get('/Storm', function(req, res, next) {
+  res.render('storm', { title: 'Storm' });
+});
+
+// Line
+router.get('/Line', function(req, res, next) {
+  res.render('line', { title: 'Line' });
+});
+
 module.exports = router;
