@@ -90,7 +90,7 @@ function init() {
       60,
       window.innerWidth / window.innerHeight,
       0.1,
-      1000
+      50000
     )
     camera.position.set(0, 20, 30)
     camera.lookAt(scene.position)
@@ -104,6 +104,8 @@ function init() {
     // 建立渲染器(抗拒齒)
     renderer = new THREE.WebGLRenderer( { antialias: true } );
     renderer.setSize(window.innerWidth, window.innerHeight)
+
+    
     // 設定背景顏色
     renderer.setClearColor(0xeeeeee, 1.0)
     renderer.shadowMap.enabled = true 
@@ -133,9 +135,35 @@ function init() {
     cameraControl.enableDamping = true
     // 阻尼系數
     cameraControl.dampingFactor = 0.05
+    
+    let materialArray = [];
+    let texture_ft = new THREE.TextureLoader().load( 'images/calm_sea_ft.jpg');
+    let texture_bk = new THREE.TextureLoader().load( 'images/calm_sea_bk.jpg');
+    let texture_up = new THREE.TextureLoader().load( 'images/calm_sea_up.jpg');
+    let texture_dn = new THREE.TextureLoader().load( 'images/calm_sea_dn.jpg');
+    let texture_rt = new THREE.TextureLoader().load( 'images/calm_sea_rt.jpg');
+    let texture_lf = new THREE.TextureLoader().load( 'images/calm_sea_lf.jpg');
+      
+    materialArray.push(new THREE.MeshBasicMaterial( { map: texture_ft }));
+    materialArray.push(new THREE.MeshBasicMaterial( { map: texture_bk }));
+    materialArray.push(new THREE.MeshBasicMaterial( { map: texture_up }));
+    materialArray.push(new THREE.MeshBasicMaterial( { map: texture_dn }));
+    materialArray.push(new THREE.MeshBasicMaterial( { map: texture_rt }));
+    materialArray.push(new THREE.MeshBasicMaterial( { map: texture_lf }));
 
+    for (let i = 0; i < 6; i++)
+       materialArray[i].side = THREE.BackSide;
+    let skyboxGeo = new THREE.BoxGeometry( 10000, 10000, 10000);
+    let skybox = new THREE.Mesh( skyboxGeo, materialArray );
+    scene.add( skybox );  
+    animate();
+  
+  function animate() {
+    renderer.render(scene,camera);
+    requestAnimationFrame(animate);
+  }
     //物件加入場景   
-    gltf_loader()
+  gltf_loader()
 }
 
 function initCannon(){
@@ -157,7 +185,7 @@ function initCannon(){
   groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(1, 0, 0), -Math.PI / 2)
 
   // 地板網格
-  let groundGeometry = new THREE.PlaneGeometry(30, 30, 30)
+  /*let groundGeometry = new THREE.PlaneGeometry(30, 30, 30)
   let groundMaterial = new THREE.MeshLambertMaterial({
     color:0x505050,
     side: THREE.DoubleSide,
@@ -165,7 +193,7 @@ function initCannon(){
   let ground = new THREE.Mesh(groundGeometry, groundMaterial)
   ground.rotation.x = -Math.PI / 2
   ground.receiveShadow = true
-  scene.add(ground)
+  scene.add(ground)*/
 }
 
 function animate() {
